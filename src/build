@@ -1,0 +1,45 @@
+#set -x
+echo "--------Building x_dbg--------"
+cd lib/x_dbg/
+make
+cd ../../
+echo "--------Building ipc--------"
+cd lib/ipc/
+make
+cd ../../
+#echo "--------Building gpio--------"
+#cd lib/gpio/
+#make
+#cd ../../
+echo "--------Building dateUtils-----------"
+cd lib/dateUtils/
+make
+cd ../../
+
+
+echo "--------Building mgr--------"
+cd tsk/mgr/
+make
+cd ../../
+echo "--------Building watch--------"
+cd tsk/watch/
+make
+cd ../../
+echo "--------Building task1----------"
+cd tsk/task1/
+make
+cd ../../
+echo "--------Building task2----------"
+cd tsk/task2/
+make
+cd ../../
+echo "--------Building dbgx-------------"
+cd tsk/dbgx/
+make
+cd ../../
+
+#echo "--------Building something-------------"
+#cd drv/something/
+#make modules
+#cd ../../
+

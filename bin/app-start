@@ -1,0 +1,17 @@
+#set -x
+echo "removing previous messages.."
+rm -f /dev/mqueue/*
+
+echo "removing previous shared memories.."
+KEYS=$(ipcs -m | grep root | awk '{print $1}')
+for i in ${KEYS};do
+   ipcrm -M $i
+done
+
+echo "setting shared library path.."
+export LD_LIBRARY_PATH=.
+
+echo "starting tasks.."
+#insmod something.ko
+./watch&
+./dbgx

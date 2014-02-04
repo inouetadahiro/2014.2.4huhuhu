@@ -1,0 +1,43 @@
+
+.SUFFIXES : .x .o .c .s
+
+CC = arm-linux-gcc
+
+CFLAGS = -O2 -I$(INC) -I$(INCSYS) -I$(INCUSR) -static
+
+OBJDIR = ../../../obj
+LIBDIR = ../../../lib
+
+ROOT = /usr/local/arm_linux_4.2
+LIB = $(ROOT)/lib/gcc/arm-linux/4.2.1
+LIB1 =$(ROOT)/arm-linux/lib
+LIBUSR = ../../../lib
+INCSYS:=$(ROOT)/arm-linux/sys-include
+INC :=$(ROOT)/arm-linux/include
+INCUSR = ../../inc
+
+WEC_LDFLAGS=-L$(LIB) -L$(LIB1)
+STRIP=arm-linux-strip
+
+TARGET = libipc.so
+
+SRCS := ipc.c
+
+LIBS= -lc -lgcc -lx_dbg
+
+all: 
+	$(CC) $(CFLAGS) $(WEC_LDFLAGS) $(SRCS) -c -o $(LIBDIR)/$(TARGET) $(LIBS)
+	$(STRIP) -S $(LIBDIR)/$(TARGET) 
+
+clean:
+	rm -f *.o 
+	rm -f *.x 
+	rm -f *.flat
+	rm -f *.map
+	rm -f temp
+	rm -f *.img
+	rm -f $(TARGET)	
+	rm -f *.gdb
+
+	rm -f $(OBJS)
+	rm -f $(LIBDIR)/$(TARGET)

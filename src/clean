@@ -1,0 +1,45 @@
+#set -x
+echo "--------Cleaning x_dbg--------"
+cd lib/x_dbg
+make clean
+cd ../../
+echo "--------Cleaning ipc--------"
+cd lib/ipc/
+make clean
+cd ../../
+#echo "--------Cleaning gpio--------"
+#cd lib/gpio/
+#make clean
+#cd ../../
+echo "--------Cleaning dateUtils--------"
+cd lib/dateUtils/
+make clean
+cd ../../
+
+
+echo "--------Cleaning mgr--------"
+cd tsk/mgr/
+make clean
+cd ../../
+echo "--------Cleaning watch--------"
+cd tsk/watch/
+make clean
+cd ../../
+echo "--------Cleaning task1----------"
+cd tsk/task1/
+make clean
+cd ../../
+echo "--------Cleaning task2--------"
+cd tsk/task2/
+make clean
+cd ../../
+echo "--------Cleaning dbgx----------"
+cd tsk/dbgx/
+make clean
+cd ../../
+
+#echo "--------Cleaning rd_if----------"
+#cd drv/rd_if/
+#make clean
+#cd ../../
+

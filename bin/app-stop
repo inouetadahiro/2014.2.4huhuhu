@@ -1,0 +1,5 @@
+killall mgr
+killall task1
+killall task2
+killall dbgx
+#rmmod something

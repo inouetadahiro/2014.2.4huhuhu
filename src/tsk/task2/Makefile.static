@@ -24,7 +24,7 @@ TARGET = task2
 
 SRCS = task2.c
 
-LIBS= -lc -lgcc -lipc -lx_dbg
+LIBS= -lc -lgcc -lrt
 
 all: $(BINDIR)/$(TARGET)
 
@@ -32,7 +32,7 @@ $(OBJDIR)/$(OBJS): $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -c -o $@
 
 $(BINDIR)/$(TARGET): $(OBJDIR)/$(OBJS)
-	$(CC) $(CFLAGS) $(OBJDIR)/$(OBJS) $(WEC_LDFLAGS) $(LIBS) -o $@
+	$(CC) $(CFLAGS) $(OBJDIR)/$(OBJS) $(OBJDIR)/x_dbg.o $(OBJDIR)/ipc.o $(WEC_LDFLAGS) $(LIBS) -o $@ -static
 	$(STRIP) $(BINDIR)/$(TARGET) 
 
 clean:

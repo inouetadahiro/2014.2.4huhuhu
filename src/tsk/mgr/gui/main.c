@@ -23,7 +23,6 @@ USHORT          gCurrentTaskID = TSKID_MGR;
 extern WINTBL_T gWindowTbl[];
 extern mqd_t    gMyQ;
 
-
 ///////////////////Utility Functions //////////////////////////
 int
 IsTimeOver (struct timeval *now, struct timeval *expires)
@@ -231,10 +230,10 @@ main (int argc, char *argv[])
                 //X_PRINTF(DBG_DEBUG, "%d %d %d\n", data.type, data.code, data.value);
                 switch (data.type) {
                 case EV_KEY:
-                    ProcessKeyEvents ( data );
+                    ProcessKeyEvents ( &data );
                     break;
                 case EV_ABS:
-                    ProcessTouchEvents ( data );
+                    ProcessTouchEvents ( &data );
                     break;
                 }
             }

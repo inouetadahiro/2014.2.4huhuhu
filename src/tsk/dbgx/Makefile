@@ -25,7 +25,6 @@ TARGET = dbgx
 SRCS = dbgx.c
 
 LIBS= -lc -lgcc -lrt -lipc -lx_dbg
-#LIBS= -lc -lgcc -lrt
 
 all: $(BINDIR)/$(TARGET)
 
@@ -33,8 +32,7 @@ $(OBJDIR)/$(OBJS): $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -c -o $@
 
 $(BINDIR)/$(TARGET): $(OBJDIR)/$(OBJS)
-	$(CC) $(CFLAGS) $(WEC_LDFLAGS) $(LIBS) $(OBJDIR)/$(OBJS) -o $@
-#	$(CC) $(CFLAGS) $(WEC_LDFLAGS) $(LIBS) $(OBJDIR)/$(OBJS) $(OBJDIR)/x_dbg.o $(OBJDIR)/ipc.o -o $@ -static
+	$(CC) $(CFLAGS) $(OBJDIR)/$(OBJS) $(WEC_LDFLAGS) $(LIBS) -o $@
 	$(STRIP) $(BINDIR)/$(TARGET) 
 
 clean:

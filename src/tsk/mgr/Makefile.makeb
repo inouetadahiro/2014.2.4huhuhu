@@ -2,11 +2,12 @@
 .SUFFIXES : .x .o .c .s
 
 CC = arm-linux-gcc
+AR = ar
 
 CFLAGS = -O0 -I$(INC) -I$(INCSYS) -I$(INCUSR) -I$(INCMGR)
 
 OBJDIR = ../../../obj
-BINDIR = ../../../bin
+LIBDIR = ../../../lib
 
 ROOT = /usr/local/arm_linux_4.2
 LIB = $(ROOT)/lib/gcc/arm-linux/4.2.1
@@ -18,25 +19,18 @@ INCUSR = ../../inc
 INCMGR = ./inc
 
 WEC_LDFLAGS=-L$(LIB) -L$(LIB1) -L$(LIBUSR)
-STRIP=arm-linux-strip
 
 OBJS = $(OBJDIR)/main.o\
        $(OBJDIR)/request.o\
        $(OBJDIR)/notify.o\
        $(OBJDIR)/timer.o\
        $(OBJDIR)/touch.o\
-       $(OBJDIR)/key.o\
-       $(OBJDIR)/opening.o\
-       $(OBJDIR)/menu.o\
-       $(OBJDIR)/winerror.o\
-       $(OBJDIR)/win_tbl.o
-TARGET = mgr
+       $(OBJDIR)/key.o
+TARGET = libbase.a
 
 LIBS= -lc -lgcc -lipc -lx_dbg
 
-all: $(BINDIR)/$(TARGET)
-#	$(CC) $(CFLAGS) gui/*.c win/*.c -o $(BINDIR)/$(TARGET) $(WEC_LDFLAGS) $(LIBS)
-#	$(STRIP) $(BINDIR)/$(TARGET) 
+all: $(LIBDIR)/$(TARGET)
 
 #GUI Framework sources
 $(OBJDIR)/main.o: gui/main.c
@@ -52,22 +46,11 @@ $(OBJDIR)/touch.o: gui/touch.c
 $(OBJDIR)/key.o: gui/key.c
 	$(CC) $(CFLAGS) gui/key.c -c -o $@
 
-#Each window sources
-$(OBJDIR)/opening.o: win/opening.c
-	$(CC) $(CFLAGS) win/opening.c -c -o $@
-$(OBJDIR)/menu.o: win/menu.c
-	$(CC) $(CFLAGS) win/menu.c -c -o $@
-$(OBJDIR)/winerror.o: win/winerror.c
-	$(CC) $(CFLAGS) win/winerror.c -c -o $@
-$(OBJDIR)/win_tbl.o: win/win_tbl.c
-	$(CC) $(CFLAGS) win/win_tbl.c -c -o $@
-
-#Linking MGR binary
-$(BINDIR)/$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(WEC_LDFLAGS) $(LIBS) -o $@
-	$(STRIP) $(BINDIR)/$(TARGET) 
+#Linking base library
+$(LIBDIR)/$(TARGET): $(OBJS)
+	$(AR) r $(LIBDIR)/$(TARGET) $(OBJS)
 
 #Cleaning objs and binaries
 clean:
 	rm -f $(OBJS)
-	rm -f $(BINDIR)/$(TARGET)
+	rm -f $(LIBDIR)/$(TARGET)

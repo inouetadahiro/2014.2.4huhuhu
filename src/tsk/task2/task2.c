@@ -82,12 +82,11 @@ main ()
 	{
         HANDLE          hReq;
         USHORT          ReqID;
-        UINT            ReqSize = (MAX_MESSAGE_SIZE + 1);
+        UINT            ReqSize;
         char            IpcBuf[MAX_MESSAGE_SIZE + 1];
         int             TimeOut = 100;
 		
         ret = WaitForRequest (&hReq, &ReqID, IpcBuf, &ReqSize, TimeOut);
-		/* ReqSize の範囲チェックはしてない */
         switch (ret)
         {
         case IPC_SUCCESS:

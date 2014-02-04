@@ -63,8 +63,8 @@ void            ProcessTimers();
 void            ClearTimers();
 
 //touch.c routines
-void            ProcessTouchEvents( struct input_event data );
-void            ProcessKeyEvents( struct input_event data );
+void            ProcessTouchEvents( const struct input_event *data );
+void            ProcessKeyEvents( const struct input_event *data );
 void            ClearTouchAreas();
 void            ClearKeyStates();
 

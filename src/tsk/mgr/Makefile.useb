@@ -20,37 +20,15 @@ INCMGR = ./inc
 WEC_LDFLAGS=-L$(LIB) -L$(LIB1) -L$(LIBUSR)
 STRIP=arm-linux-strip
 
-OBJS = $(OBJDIR)/main.o\
-       $(OBJDIR)/request.o\
-       $(OBJDIR)/notify.o\
-       $(OBJDIR)/timer.o\
-       $(OBJDIR)/touch.o\
-       $(OBJDIR)/key.o\
-       $(OBJDIR)/opening.o\
+OBJS =  $(OBJDIR)/opening.o\
        $(OBJDIR)/menu.o\
        $(OBJDIR)/winerror.o\
        $(OBJDIR)/win_tbl.o
 TARGET = mgr
 
-LIBS= -lc -lgcc -lipc -lx_dbg
+LIBS= -lc -lgcc -lipc -lx_dbg -lbase
 
 all: $(BINDIR)/$(TARGET)
-#	$(CC) $(CFLAGS) gui/*.c win/*.c -o $(BINDIR)/$(TARGET) $(WEC_LDFLAGS) $(LIBS)
-#	$(STRIP) $(BINDIR)/$(TARGET) 
-
-#GUI Framework sources
-$(OBJDIR)/main.o: gui/main.c
-	$(CC) $(CFLAGS) gui/main.c -c -o $@
-$(OBJDIR)/request.o: gui/request.c
-	$(CC) $(CFLAGS) gui/request.c -c -o $@
-$(OBJDIR)/notify.o: gui/notify.c
-	$(CC) $(CFLAGS) gui/notify.c -c -o $@
-$(OBJDIR)/timer.o: gui/timer.c
-	$(CC) $(CFLAGS) gui/timer.c -c -o $@
-$(OBJDIR)/touch.o: gui/touch.c
-	$(CC) $(CFLAGS) gui/touch.c -c -o $@
-$(OBJDIR)/key.o: gui/key.c
-	$(CC) $(CFLAGS) gui/key.c -c -o $@
 
 #Each window sources
 $(OBJDIR)/opening.o: win/opening.c
@@ -64,7 +42,7 @@ $(OBJDIR)/win_tbl.o: win/win_tbl.c
 
 #Linking MGR binary
 $(BINDIR)/$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(WEC_LDFLAGS) $(LIBS) -o $@
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(WEC_LDFLAGS) $(LIBS)
 	$(STRIP) $(BINDIR)/$(TARGET) 
 
 #Cleaning objs and binaries

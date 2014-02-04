@@ -7,6 +7,10 @@ echo "--------Cleaning ipc--------"
 cd lib/ipc/
 make clean
 cd ../../
+echo "--------Cleaning task_main--------"
+cd lib/task_main/
+make clean
+cd ../../
 #echo "--------Cleaning gpio--------"
 #cd lib/gpio/
 #make clean

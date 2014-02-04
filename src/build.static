@@ -7,10 +7,6 @@ echo "--------Building ipc--------"
 cd lib/ipc/
 make
 cd ../../
-echo "--------Building task_main-----------"
-cd lib/task_main/
-make
-cd ../../
 #echo "--------Building gpio--------"
 #cd lib/gpio/
 #make
@@ -23,23 +19,23 @@ cd ../../
 
 echo "--------Building mgr--------"
 cd tsk/mgr/
-make
+make -f Makefile.static
 cd ../../
 echo "--------Building watch--------"
 cd tsk/watch/
-make
+make -f Makefile.static
 cd ../../
 echo "--------Building task1----------"
 cd tsk/task1/
-make
+make -f Makefile.static
 cd ../../
 echo "--------Building task2----------"
 cd tsk/task2/
-make
+make -f Makefile.static
 cd ../../
 echo "--------Building dbgx-------------"
 cd tsk/dbgx/
-make
+make -f Makefile.static
 cd ../../
 
 #echo "--------Building something-------------"

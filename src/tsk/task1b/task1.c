@@ -18,7 +18,6 @@
 
 #ifdef DEBUG
 
-#define Response(x,y,z)                (Response(x,y,z),FakeResponse(x,y,z))    //
 #define Notify(x,y,z)                (Notify(x,y,z),FakeNotify(x,y,z))    //
 
 #endif
@@ -38,7 +37,6 @@ static void sendTask1Notify1(void)
     }
 }
 
-static
 int ProcessRequest(HANDLE hReq, USHORT ReqId, void * IpcBuf, USHORT ReqSize)
 {
     int ret, id, i;
@@ -65,44 +63,17 @@ int ProcessRequest(HANDLE hReq, USHORT ReqId, void * IpcBuf, USHORT ReqSize)
 
 USHORT gCurrentTaskID = TSKID_TASK1;
 
-int
-main ()
+int onCreate ()
 {
-    UINT            ret;
-    int             quit = 0;
+    return 0;
+}
 
-    ret = InitializeIpcFramework(TSKID_TASK1);
-    if(ret != IPC_SUCCESS)
-    {
-        X_PRINTF(DBG_CRIT,"InitializeIpcFramework failed, ret=%d\n", ret);
-        exit(1);
-    }
-    
-    while (!quit)
-    {
-        HANDLE          hReq;
-        USHORT          ReqID;
-        UINT            ReqSize;
-        char            IpcBuf[MAX_MESSAGE_SIZE + 1];
-        int             TimeOut = 100;
-        
-        ret = WaitForRequest (&hReq, &ReqID, IpcBuf, &ReqSize, TimeOut);
-        switch (ret)
-        {
-        case IPC_SUCCESS:
-#ifdef DEBUG
-            FakeRcvRequest(hReq, ReqID, (void*) IpcBuf, ReqSize);    /* consoleèoóÕÇæÇØ */
-#endif
-            quit = ProcessRequest(hReq, ReqID, (void*) IpcBuf, ReqSize);
-            break;
-        case IPC_ERR_TIMEOUT:
-            break;//continue;
-        default:
-            X_PRINTF(DBG_CRIT,"WaitForRequest failed, ret=%d\n", ret);
-            exit(-1);
-            break;
-        }
-    }
+int onLoop ()
+{
+    return 0;
+}
 
+int onDestroy ()
+{
     return 0;
 }

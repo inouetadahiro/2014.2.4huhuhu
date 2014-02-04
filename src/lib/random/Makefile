@@ -3,10 +3,10 @@
 
 CC = arm-linux-gcc
 
-CFLAGS = -O0 -I$(INC) -I$(INCSYS) -I$(INCUSR)
+CFLAGS = -O0 -fPIC -I$(INC) -I$(INCSYS) -I$(INCUSR)
 
 OBJDIR = ../../../obj
-BINDIR = ../../../bin
+LIBDIR = ../../../lib
 
 ROOT = /usr/local/arm_linux_4.2
 LIB = $(ROOT)/lib/gcc/arm-linux/4.2.1
@@ -16,25 +16,22 @@ INCSYS:=$(ROOT)/arm-linux/sys-include
 INC :=$(ROOT)/arm-linux/include
 INCUSR = ../../inc
 
-WEC_LDFLAGS=-L$(LIB) -L$(LIB1) -L$(LIBUSR)
 STRIP=arm-linux-strip
 
-OBJS = task2.o
-TARGET = task2
+OBJS = random.o
+TARGET = librandom.so
 
-SRCS = task2.c
+SRCS = random.c
 
-LIBS= -lc -lgcc -lipc -lx_dbg
-
-all: $(BINDIR)/$(TARGET)
+all: $(LIBDIR)/$(TARGET)
 
 $(OBJDIR)/$(OBJS): $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -c -o $@
 
-$(BINDIR)/$(TARGET): $(OBJDIR)/$(OBJS)
-	$(CC) $(CFLAGS) $(OBJDIR)/$(OBJS) $(WEC_LDFLAGS) $(LIBS) -o $@
-	$(STRIP) $(BINDIR)/$(TARGET) 
+$(LIBDIR)/$(TARGET): $(OBJDIR)/$(OBJS)
+	$(CC) -shared -Wl,-soname,libipc.so $(OBJDIR)/$(OBJS) -o $@
+	$(STRIP) -S $(LIBDIR)/$(TARGET) 
 
 clean:
 	rm -f $(OBJDIR)/$(OBJS)
-	rm -f $(BINDIR)/$(TARGET)
+	rm -f $(LIBDIR)/$(TARGET)

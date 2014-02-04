@@ -3,7 +3,7 @@
 
 CC = arm-linux-gcc
 
-CFLAGS = -O0 -I$(INC) -I$(INCSYS) -I$(INCUSR)
+CFLAGS = -O2 -I$(INC) -I$(INCSYS) -I$(INCUSR) -static
 
 OBJDIR = ../../../obj
 BINDIR = ../../../bin
@@ -19,22 +19,25 @@ INCUSR = ../../inc
 WEC_LDFLAGS=-L$(LIB) -L$(LIB1) -L$(LIBUSR)
 STRIP=arm-linux-strip
 
-OBJS = task2.o
-TARGET = task2
+TARGET = watch
 
-SRCS = task2.c
+SRCS := watch.c
 
-LIBS= -lc -lgcc -lipc -lx_dbg
+LIBS= -lc -lgcc -lipc -lx_dbg -lrt
 
-all: $(BINDIR)/$(TARGET)
-
-$(OBJDIR)/$(OBJS): $(SRCS)
-	$(CC) $(CFLAGS) $(SRCS) -c -o $@
-
-$(BINDIR)/$(TARGET): $(OBJDIR)/$(OBJS)
-	$(CC) $(CFLAGS) $(OBJDIR)/$(OBJS) $(WEC_LDFLAGS) $(LIBS) -o $@
+all: 
+	$(CC) $(CFLAGS) $(WEC_LDFLAGS) $(SRCS) $(LIBS) -o $(BINDIR)/$(TARGET)
 	$(STRIP) $(BINDIR)/$(TARGET) 
 
 clean:
-	rm -f $(OBJDIR)/$(OBJS)
+	rm -f *.o 
+	rm -f *.x 
+	rm -f *.flat
+	rm -f *.map
+	rm -f temp
+	rm -f *.img
+	rm -f $(TARGET)	
+	rm -f *.gdb
+
+	rm -f $(OBJS)
 	rm -f $(BINDIR)/$(TARGET)

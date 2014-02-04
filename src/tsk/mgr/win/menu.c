@@ -123,7 +123,7 @@ MenuOnLf500Push (void)
 
     for (i=0; i<8; i++)
         req.reserve[i] = i;
-    Request (TASK1_REQUEST1, (void *) &req, sizeof(TASK1_A1_REQUEST_T), TIMEOUT_LONG, (RESPONSE_CALLBACK_T *) NULL);
+    Request (TASK1_REQUEST1, (void *) &req, sizeof(TASK1_A1_REQUEST_T), TIMEOUT_LONG, NULL);
 
 
     FUNCTION_EXIT();
@@ -140,7 +140,7 @@ MenuOnLfRelease (void)
 /////////////Timer Callback//////////
 
 static void
-MenuOnTimer1 (void)
+MenuOnTimer1 (USHORT id)
 {
     FUNCTION_ENTRY();
 
@@ -168,7 +168,7 @@ MenuOnLoad (USHORT prev_win_id)
     GUICHECK(RegisterKeyPushCallback(lf_500, MenuOnLf500Push));
     GUICHECK(RegisterKeyPushCallback(lf_release, MenuOnLfRelease));
 
-    GUICHECK(RegisterTimerCallback(TIMER_ID, TIME_OUT, (TIMER_CALLBACK_T *) MenuOnTimer1));
+    GUICHECK(RegisterTimerCallback(TIMER_ID, TIME_OUT, MenuOnTimer1));
 
     FUNCTION_EXIT();
 }

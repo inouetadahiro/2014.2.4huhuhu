@@ -97,7 +97,7 @@ ProcessTouchAreas ()
 }
 
 void
-ProcessTouchEvents ( struct input_event data )
+ProcessTouchEvents ( const struct input_event *data )
 {
 }
 

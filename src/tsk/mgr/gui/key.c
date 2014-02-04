@@ -82,15 +82,14 @@ ProccessKeyState(GUI_STATE_T state)
 #define KEY_REPEAT  2
 
 void
-ProcessKeyEvents ( struct input_event data )
+ProcessKeyEvents ( const struct input_event *data )
 {
     GUI_STATE_T state;
-    unsigned short key_type = data.code;
-    unsigned long push = data.value;
+    unsigned short key_type = data->code;
+    unsigned long push = data->value;
     static struct timeval begin_time;
     static long count;
-    long diff;
-
+ 
     switch (push) {
     case KEY_RELEASE:
         state.type = key_type;
@@ -101,7 +100,7 @@ ProcessKeyEvents ( struct input_event data )
         state.type = key_type;
         state.time = 1;
         ProccessKeyState(state);
-        begin_time = data.time;
+        begin_time = data->time;
         count = 1;
         break;
     case KEY_REPEAT:

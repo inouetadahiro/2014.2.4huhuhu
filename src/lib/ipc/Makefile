@@ -32,7 +32,7 @@ $(OBJDIR)/$(OBJS): $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -c -o $@
 
 $(LIBDIR)/$(TARGET): $(OBJDIR)/$(OBJS)
-	$(CC) $(WEC_LDFLAGS) $(LIBS) -shared -Wl,-soname,libipc.so $(OBJDIR)/$(OBJS) -o $@
+	$(CC) -shared -Wl,-soname,libipc.so $(OBJDIR)/$(OBJS) -o $@ $(WEC_LDFLAGS) $(LIBS)
 	$(STRIP) -S $(LIBDIR)/$(TARGET) 
 
 clean:

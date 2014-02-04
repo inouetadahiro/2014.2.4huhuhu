@@ -19,22 +19,16 @@ INCUSR = ../../inc
 WEC_LDFLAGS=-L$(LIB) -L$(LIB1) -L$(LIBUSR)
 STRIP=arm-linux-strip
 
-OBJS = task2.o
-TARGET = task2
+OBJS = task.o
 
-SRCS = task2.c
+SRCS = task.c
 
 LIBS= -lc -lgcc -lipc -lx_dbg
 
-all: $(BINDIR)/$(TARGET)
+all: $(OBJDIR)/$(OBJS)
 
 $(OBJDIR)/$(OBJS): $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -c -o $@
 
-$(BINDIR)/$(TARGET): $(OBJDIR)/$(OBJS)
-	$(CC) $(CFLAGS) $(OBJDIR)/$(OBJS) $(WEC_LDFLAGS) $(LIBS) -o $@
-	$(STRIP) $(BINDIR)/$(TARGET) 
-
 clean:
 	rm -f $(OBJDIR)/$(OBJS)
-	rm -f $(BINDIR)/$(TARGET)
